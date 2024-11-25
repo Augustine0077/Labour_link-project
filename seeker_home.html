@@ -1,0 +1,269 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LabourLink - Seeker Home</title>
+    <style>
+        /* General Styles */
+       /* General Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('bg.jpeg') no-repeat center center fixed;
+    background-size: cover; /* Ensure the background covers the whole page */
+    color: #333; /* General text color */
+}
+
+/* Overlay Effect for Better Readability */
+.content {
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white overlay */
+    padding: 20px;
+    margin-left: 60px;
+    transition: all 0.5s ease;
+    border-radius: 8px; /* Rounded corners */
+}
+
+/* Header Styles */
+.header {
+    background-color: white(0, 128, 0, 0.7); /* Slightly transparent green */
+    color: black;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px; /* Match rounded corners */
+}
+
+/* Sidebar Styles */
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8); /* Dark semi-transparent background */
+    padding-top: 20px;
+    transition: 0.5s;
+    overflow-x: hidden;
+    z-index: 999;
+}
+
+/* Sidebar Links */
+.sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 16px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #575757;
+}
+
+/* Open Button Styles */
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: transparent;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+}
+
+.openbtn:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Search Bar Styles */
+        .search-bar {
+            padding: 20px;
+            text-align: center;
+            background-color: white(0, 128, 0, 0.8);
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input[type="text"],
+        .search-bar select {
+            width: 250px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .search-bar button {
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .search-bar button:hover {
+            background-color: #218838;
+        }
+
+
+
+}
+
+/* Job Cards */
+.job-list {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.job-card {
+    background-color: rgba(255, 255, 255, 0.9); /* Add slight transparency */
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    text-align: center;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.job-card:hover {
+    background-color: #f1f1f1;
+}
+
+.job-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #007bff;
+}
+
+.job-card p {
+    font-size: 1em;
+    color: #333;
+}
+    
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="mySidebar">
+        <a href="javascript:void(0)" onclick="closeNav()">Close ×</a>
+        <a href="home.html">Home</a>
+        <a href="view_profile.php">View/Edit Profile</a>
+        <a href="job_listings.php"> Jobs</a>
+        <a href="applied_jobs.php">Applied Jobs</a>
+        <a href="seeker_notifications.php">Notifications</a>
+
+
+        <a href="complaint_form.php">Complaint Registration</a>
+        <a href="index.html">Log Out</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content" id="main">
+        <span class="hello-seeker" id="helloUser">Hello Seeker!</span>
+        <button class="openbtn" onclick="openNav()">☰</button>
+
+        <!-- Header -->
+        <div class="header">
+            <h1>LabourLink - Find Jobs for Skilled Workers</h1>
+        </div>
+        <div class="search-bar">
+            <h2>Search Jobs</h2>
+            <form action="search.php" method="GET">
+                <input type="text" name="job_title" placeholder="Eg. painter">
+               <form action="search.php" method="GET">
+                <input type="text" name="location" placeholder="Eg. kochi">                   
+                    <!-- Add more cities as needed -->
+                </select>
+                <button type="submit">Search </button>
+            </form>
+        </div>
+
+       
+
+        <!-- Job List Section -->
+        <div class="job-list" id="jobList">
+            <!-- Job cards will be populated here by JavaScript -->
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+        }
+
+        function getUserData() {
+            fetch('fetch_user_data.php')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("helloUser").textContent = `Hello ${data.name}!`;
+                })
+                .catch(error => console.error('Error fetching user data:', error));
+        }
+
+        function fetchJobs() {
+            fetch('fetch_jobs.php')
+                .then(response => response.json())
+                .then(data => {
+                    const jobList = document.getElementById("jobList");
+                    jobList.innerHTML = ''; // Clear existing job cards
+
+                    data.forEach(job => {
+                        const jobCard = document.createElement("div");
+                        jobCard.classList.add("job-card");
+                        jobCard.onclick = () => goToPage(`job_details.php?job_id=${job.job_id}`); // Redirect on click
+
+                        jobCard.innerHTML = `
+                            <h3 style="color: blue;">${job.title}</h3>
+                            <p>Location: ${job.location}</p>
+                            <p>Posted by: ${job.recruiter_name}</p>
+                        `;
+
+                        jobList.appendChild(jobCard);
+                    });
+                })
+                .catch(error => console.error('Error fetching jobs:', error));
+        }
+
+        function goToPage(pageUrl) {
+            window.location.href = pageUrl; // Redirect to the specified page
+        }
+
+        function searchJobs() {
+            var searchInput = document.getElementById("searchInput").value.toLowerCase();
+            // Search functionality can be implemented here if desired
+            alert('Search functionality is not yet implemented.'); // Placeholder alert
+        }
+
+        // Load user data and jobs on page load
+        window.onload = function() {
+            getUserData();
+            fetchJobs(); // Fetch jobs when the page loads
+        };
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+

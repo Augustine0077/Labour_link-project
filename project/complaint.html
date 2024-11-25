@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #c3dbb4; /* Pista Green background */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #555;
+        }
+        input[type="email"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #5cb85c;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+    <script>
+        function validateForm(event) {
+            let valid = true;
+            let errorMessage = "";
+
+            // Email validation
+            const email = document.getElementById("complainer_email").value;
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailPattern.test(email)) {
+                errorMessage += "Please enter a valid email address.\n";
+                valid = false;
+            }
+
+            // Complained against email validation
+            const complainedAgainstEmail = document.getElementById("complained_against_email").value;
+            if (!emailPattern.test(complainedAgainstEmail)) {
+                errorMessage += "Please enter a valid email for 'Complained Against'.\n";
+                valid = false;
+            }
+
+            // Role validation
+            const role = document.getElementById("complainer_role").value;
+            if (role === "") {
+                errorMessage += "Please select your role.\n";
+                valid = false;
+            }
+
+            // Complaint validation
+            const complaint = document.getElementById("complaint").value;
+            if (complaint.trim() === "") {
+                errorMessage += "Please enter your complaint.\n";
+                valid = false;
+            }
+
+            // Rating validation
+            const rating = document.getElementById("rating").value;
+            if (rating < 1 || rating > 5 || isNaN(rating)) {
+                errorMessage += "Please provide a rating between 1 and 5.\n";
+                valid = false;
+            }
+
+            // If the form is invalid, prevent submission and show error messages
+            if (!valid) {
+                event.preventDefault();
+                alert(errorMessage);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.querySelector("form");
+            form.addEventListener("submit", validateForm);
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Complaint Registration Form</h2>
+        <form action="submit_complaint.php" method="POST">
+            <label for="complainer_email">Your Email:</label>
+            <input type="email" name="complainer_email" id="complainer_email" required>
+
+            <label for="complainer_role">Your Role:</label>
+            <select name="complainer_role" id="complainer_role" required>
+                <option value="">Select your role</option>
+                <option value="seeker">Seeker</option>
+                <option value="recruiter">Recruiter</option>
+            </select>
+
+            <label for="complained_against_email">Complained Against Email:</label>
+            <input type="email" name="complained_against_email" id="complained_against_email" required>
+
+            <label for="complaint">Complaint:</label>
+            <textarea name="complaint" id="complaint" rows="5" required></textarea>
+
+            <label for="rating">Rating (1 to 5):</label>
+            <input type="number" name="rating" id="rating" min="1" max="5" required>
+
+            <button type="submit">Submit Complaint</button>
+        </form>
+    </div>
+</body>
+</html>

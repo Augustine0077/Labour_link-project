@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password or Email Incorrect</title>
+    <style>
+        body {
+            background-color: #e6ffe6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .message {
+            background-color: #ffffff;
+            padding: 30px;
+            border: 2px solid #ff3333;
+            border-radius: 10px;
+        }
+        .message h1 {
+            color: #ff3333;
+        }
+        .message p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .back-btn {
+            background-color: #ff3333;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .back-btn:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="message">
+        <h1>Password or Email Incorrect</h1>
+        <p>Your password or email is incorrect. Please try again.</p>
+        <a href="javascript:history.back()" class="back-btn">Back</a> <!-- Back button -->
+    </div>
+</body>
+</html>

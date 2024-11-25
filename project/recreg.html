@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>LABOUR LINK</title>
+    <style>
+        /* Increase size of container */
+        .container {
+            width: 90%; /* Adjust as needed */
+            max-width: 1000px; /* Adjust as needed */
+            margin: 0 auto;
+            padding: 40px;
+            box-sizing: border-box;
+            height: 600px; /* Adjust the height as needed */
+        }
+
+        .error {
+            color: red;
+            font-size: 0.875em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form id="registrationForm" action="rec_reg.php" method="POST">
+                <label for="name" class="container__label">Name</label>
+                <input type="text" name="name" id="name" placeholder="Enter your Name" required minlength="2" />
+                <span class="error" id="nameError"></span>
+
+                <label for="email" class="container__label">Email</label>
+                <input type="email" name="email" id="email" class="container__input" placeholder="Enter your Email" required />
+                <span class="error" id="emailError"></span>
+
+                <label for="password" class="container__label">Password</label>
+                <input type="password" name="password" id="password" class="container__input" placeholder="Enter your Password" required minlength="6" />
+                <span class="error" id="passwordError"></span>
+
+                <label for="confirm_password" class="container__label">Confirm Password</label>
+                <input type="password" name="confirm_password" id="confirm_password" class="container__input" placeholder="Confirm your Password" required />
+                <span class="error" id="confirmPasswordError"></span>
+
+                <label for="address" class="container__label">Address</label>
+                <input type="text" name="address" id="address" class="container__input" placeholder="Enter your Address" required />
+                <span class="error" id="addressError"></span>
+
+                <label for="pin" class="container__label">PIN</label>
+                <input type="number" id="pin" name="pin" class="container__input" placeholder="Enter your PIN" required />
+                <span class="error" id="pinError"></span>
+
+                <label for="city" class="container__label">City</label>
+                <input type="text" id="city" name="city" class="container__input" placeholder="Enter your City" required />
+                <span class="error" id="cityError"></span>
+
+                <button type="submit" class="form__submit" name="register">REGISTER</button>
+            </form>
+        </div>
+        <div class="form-container sign-in">
+            <form>
+                <h1>LABOUR LINK</h1>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>LABOUR LINK</h1>
+                    <p>Enter your personal details to use all of site features</p>
+                    <button class="form__submit" onclick="redirectToSecondPage()">Back</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Register with your personal details to use all of site features</p>
+                    <button class="hidden" id="register">Register</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+        function redirectToSecondPage() {
+            window.location.href = "secondpage.html";
+        }
+
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            let valid = true;
+
+            // Name validation
+            const name = document.getElementById('name').value;
+            if (!/^[a-zA-Z\s]+$/.test(name)) {
+                document.getElementById('nameError').textContent = 'Name must only contain alphabetic characters and spaces.';
+                valid = false;
+            } else if (name.length < 2) {
+                document.getElementById('nameError').textContent = 'Name must be at least 2 characters long.';
+                valid = false;
+            } else {
+                document.getElementById('nameError').textContent = '';
+            }
+
+            // Email validation
+            const email = document.getElementById('email').value;
+            if (!email.includes('@')) {
+                document.getElementById('emailError').textContent = 'Email must contain "@" symbol.';
+                valid = false;
+            } else if (!/\S+@\S+\.\S+/.test(email)) {
+                document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+                valid = false;
+            } else {
+                document.getElementById('emailError').textContent = '';
+            }
+
+            // Password validation
+            const password = document.getElementById('password').value;
+            const specialCharPattern = /[!@#$%^&*(),.?":{}|<>]/;
+            if (password.length < 6) {
+                document.getElementById('passwordError').textContent = 'Password must be at least 6 characters long.';
+                valid = false;
+            } else if (!specialCharPattern.test(password)) {
+                document.getElementById('passwordError').textContent = 'Password must contain at least one special character.';
+                valid = false;
+            } else {
+                document.getElementById('passwordError').textContent = '';
+            }
+
+            // Confirm Password validation
+            const confirmPassword = document.getElementById('confirm_password').value;
+            if (confirmPassword !== password) {
+                document.getElementById('confirmPasswordError').textContent = 'Passwords do not match.';
+                valid = false;
+            } else {
+                document.getElementById('confirmPasswordError').textContent = '';
+            }
+
+            // Address validation
+            const address = document.getElementById('address').value;
+            if (address.trim() === '') {
+                document.getElementById('addressError').textContent = 'Address is required.';
+                valid = false;
+            } else {
+                document.getElementById('addressError').textContent = '';
+            }
+
+            // PIN validation
+            const pin = document.getElementById('pin').value;
+            if (pin.length !== 6) {
+                document.getElementById('pinError').textContent = 'PIN must be exactly 6 digits.';
+                valid = false;
+            } else {
+                document.getElementById('pinError').textContent = '';
+            }
+
+            // City validation
+            const city = document.getElementById('city').value;
+            if (!/^[a-zA-Z\s]+$/.test(city)) {
+                document.getElementById('cityError').textContent = 'City must only contain alphabetic characters and spaces.';
+                valid = false;
+            } else if (city.trim() === '') {
+                document.getElementById('cityError').textContent = 'City is required.';
+                valid = false;
+            } else {
+                document.getElementById('cityError').textContent = '';
+            }
+
+            if (!valid) {
+                event.preventDefault();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

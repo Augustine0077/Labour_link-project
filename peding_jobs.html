@@ -1,0 +1,78 @@
+<?php 
+include_once('connection.php'); 
+$query="select * from student"; 
+$result=mysql_query($query); 
+?> 
+<!DOCTYPE html> 
+<html> 
+	<head> 
+		<title> Fetch Data From Database </title> 
+	</head> 
+	<body> 
+		<table align="center" border="1px" style="width:600px; line-height:40px;"> 
+			<tr> 
+				<th colspan="5"><h2>pending jobs</h2></th> 
+			</tr> 
+			<tr> 
+				<th> job </th> 
+				<th> rq_Name </th> 
+				<th> Email </th> 
+				<th> Phone number </th> 
+				<th> Action </th> <!-- Added column for delete buttons -->
+			</tr> 
+			
+			<?php while($rows=mysql_fetch_assoc($result)) { ?> 
+				<tr> 
+					<td><?php echo $rows['ID']; ?></td> 
+					<td><?php echo $rows['Name']; ?></td> 
+					<td><?php echo $rows['Email']; ?></td> 
+					<td><?php echo $rows['phone number']; ?></td> 
+					<td><button onclick="deleteRow(this)">Delete</button></td> <!-- Added delete button -->
+				</tr> 
+			<?php } ?> 
+
+			<!-- Additional Rows -->
+			<tr>
+				<td>Painter</td>
+				<td>Augustinr</td>
+				<td>agu@gmail.com</td>
+				<td>7994529901</td>
+				<td><button onclick="deleteRow(this)">Delete</button></td> <!-- Added delete button -->
+			</tr>
+			<tr>
+				<td>Plumber</td>
+				<td>John Doe</td>
+				<td>john.doe@example.com</td>
+				<td>1234567890</td>
+				<td><button onclick="deleteRow(this)">Delete</button></td> <!-- Added delete button -->
+			</tr>
+			<tr>
+				<td>Carpenter</td>
+				<td>Jane Smith</td>
+				<td>jane.smith@example.com</td>
+				<td>9876543210</td>
+				<td><button onclick="deleteRow(this)">Delete</button></td> <!-- Added delete button -->
+			</tr>
+			<tr>
+				<td>Electrician</td>
+				<td>Michael Johnson</td>
+				<td>michael.johnson@example.com</td>
+				<td>5556667777</td>
+				<td><button onclick="deleteRow(this)">Delete</button></td> <!-- Added delete button -->
+			</tr>
+			<tr>
+				<td>Handyman</td>
+				<td>Emily Wilson</td>
+				<td>emily.wilson@example.com</td>
+				<td>1112223333</td>
+				<td><button onclick="deleteRow(this)">Delete</button></td> <!-- Added delete button -->
+			</tr>
+		</table> 
+		<script>
+			function deleteRow(btn) {
+				var row = btn.parentNode.parentNode;
+				row.parentNode.removeChild(row);
+			}
+		</script>
+	</body> 
+</html>

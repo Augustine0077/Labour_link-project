@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Seeker Registration - Labour Link</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="valid_b.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('backimage.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-color: #f8f9fa;
+        }
+        .container-fluid {
+            margin-top: 20px;
+            animation: fadeInDown 1s;
+        }
+        h1 {
+            font-family: 'Arial', sans-serif;
+            color: #007b5e;
+            font-weight: bold;
+        }
+        .container {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 1s;
+        }
+        .form-group label {
+            font-size: 14px;
+            color: #495057;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            font-size: 12px;
+            border-radius: 4px;
+        }
+        .form-group p {
+            font-size: 12px;
+            color: #dc3545;
+            margin-top: 5px;
+            display: none;
+        }
+        .wrap {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .wrap button {
+            background-color: #007b5e;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .wrap button:hover {
+            background-color: #005f46;
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid text-center">
+        <h1>Labour Link</h1>
+    </div>
+    <div class="container">
+        <h1 class="text-center">Seeker Registration</h1>
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <form id="myform" action="login_action_buyer.php" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="firstname">First Name</label>
+                        <input type="text" name="firstname" id="firstname" class="form-control" onkeyup="validation('firstname')" placeholder="Enter your first name">
+                        <p id="error_firstname">Required</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname">Last Name</label>
+                        <input type="text" name="lastname" id="lastname" class="form-control" onkeyup="validation('lastname')" placeholder="Enter your last name">
+                        <p id="error_lastname">Required</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" class="form-control" onkeyup="validation('email')" placeholder="Enter your email">
+                        <p id="error_email">Enter valid email id</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="job_title">Job Title</label>
+                        <textarea rows="4" name="job_title" id="job_title" class="form-control" onkeyup="validation('job_title')" placeholder="Enter job title"></textarea>
+                        <p id="error_job_title">Required</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" class="form-control" onkeyup="validation('password')" placeholder="Enter your password">
+                        <p id="error_password">Enter valid password</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm_password">Confirm Password</label>
+                        <input type="password" name="confirm_password" id="confirm_password" class="form-control" onkeyup="validation('confirm_password')" placeholder="Confirm your password">
+                        <p id="error_confirmpassword">Confirm password</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="phonenumber">Phone Number</label>
+                        <input type="number" min="100000" max="100000000000" name="phonenumber" id="phonenumber" class="form-control" onkeyup="validation('phonenumber')" placeholder="Enter your phone number">
+                        <p id="error_phonenumber">Enter phone number correctly</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <textarea rows="4" name="address" id="address" class="form-control" onkeyup="validation('address')" placeholder="Enter your address"></textarea>
+                        <p id="error_address">Enter valid address</p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" name="dob" id="dob" class="form-control" placeholder="Enter your date of birth">
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select name="gender" id="gender" class="form-control">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="skills">Skills</label>
+                        <textarea rows="4" name="skills" id="skills" class="form-control" onkeyup="validation('skills')" placeholder="List your skills"></textarea>
+                        <p id="error_skills">Enter valid skills</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="hourly_rate">Hourly Rate</label>
+                        <input type="number" name="hourly_rate" id="hourly_rate" class="form-control" onkeyup="validation('hourly_rate')" placeholder="Enter your hourly rate">
+                        <p id="error_hourly_rate">Enter valid hourly rate</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="work_experience">Work Experience</label>
+                        <input type="text" name="work_experience" id="work_experience" class="form-control" onkeyup="validation('work_experience')" placeholder="Enter your work experience">
+                        <p id="error_work_experience">Enter valid work experience</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="years_of_experience">Years of Experience</label>
+                        <input type="number" name="years_of_experience" id="years_of_experience" class="form-control" onkeyup="validation('years_of_experience')" placeholder="Enter your years of experience">
+                        <p id="error_years_of_experience">Enter valid years of experience</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="languages_known">Languages Known</label>
+                        <select name="languages_known[]" id="languages_known" class="form-control" multiple>
+                            <option value="English">English</option>
+                            <option value="Malayalam">Malayalam</option>
+                            <option value="Tamil">Tamil</option>
+                            <option value="Hindi">Hindi</option>
+                        </select>
+                        <p id="error_languages_known">Select at least one language</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" name="location" id="location" class="form-control" onkeyup="validation('location')" placeholder="Enter your location">
+                        <p id="error_location">Enter valid location</p>
+                    </div>
+                    <div class="wrap">
+                        <button type="submit" name="register">REGISTER</button><br>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+    </div>
+    <script>
+        function redirectToAMD() {
+            window.location.href = "login_seeker.html";
+        }
+
+        function validation(field) {
+            let fieldValue = document.getElementById(field).value;
+            let errorField = document.getElementById('error_' + field);
+
+            if (fieldValue.trim() === '') {
+                errorField.style.display = 'block';
+            } else {
+                errorField.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

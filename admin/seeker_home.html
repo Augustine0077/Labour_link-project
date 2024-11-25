@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LABOURLINK</title>
+<style>
+
+    body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('green.png');
+            background-size: cover;
+            background-repeat: no-repezat;
+            background-attachment: fixed;
+            background-position: center;
+            background-color: #f8f9fa;
+        }
+
+        margin: 0;{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f0f0f0;
+        transition: background-color 0.5s;
+    }
+    .sidebar {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        padding-top: 10px;
+        transition: 0.5s;
+        overflow-x: hidden;
+        color: black;
+    }
+    .sidebar a {
+        padding: 8px;
+        text-decoration: none;
+        font-size: 16px;
+        color: white;
+        display: block;
+        transition: 0.3s;
+        font-family: 'Roboto', Arial, sans-serif;
+    }
+    .sidebar a:hover {
+        background-color: #555;
+    }
+    .content {
+        margin: 0 auto;
+        padding: 20px;
+        width: 80%;
+        text-align: center;
+        transition: all 0.5s ease;
+    }
+    .openbtn {
+        font-size: 20px;
+        cursor: pointer;
+        background-color: transparent;
+        color: black;
+        padding: 10px 15px;
+        border: none;
+        font-family: 'Roboto', Arial, sans-serif;
+        transition: all 0.3s ease;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+    .openbtn:hover {
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+    h1 {
+        font-size: 48px;
+        font-weight: bold;
+        font-family: Arial, sans-serif;
+        color: #333;
+    }
+    p {
+        font-weight: bold;
+    }
+    .logo {
+        width: 150px;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    .search-container {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .search-container input[type=text] {
+        padding: 10px;
+        margin-top: 10px;
+        width: 50%;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    .recruiters-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        list-style-type: none;
+        padding: 0;
+        margin: 0 auto;
+        width: 100%;
+    }
+    .recruiter-card {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .recruiter-card:hover {
+        background-color: #ddd;
+    }
+    .hello-recruiter {
+        position: absolute;
+        top: 0;
+        right: 20px;
+        font-size: 20px;
+        color: #333;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+<div class="sidebar" id="mySidebar">
+    <a href="#" onclick="closeNav()">Close</a>
+    <a href="firstpage.html">Home</a>
+    <a href="viewprofile.php">View/Edit profile</a>
+    <a href="apply.html">Apply For New Job</a>
+    <a href="complaint.html">Complaint Registration</a>
+    <a href="seeker_rating.html">Rating/Review</a>
+    <a href="logout.php">Log Out</a>
+</div>
+
+<div class="content" id="main">
+    <span class="hello-recruiter" id="helloUser">Hello Recruiter!</span>
+    <button class="openbtn" onclick="openNav()">☰</button>
+   
+    <h1>LABOUR LINK</h1>
+    <p>Connecting workers to opportunities.</p>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search ">
+    </div>
+
+    <div class="recruiters-list" id="recruitersList">
+        <!--recruiter cards will be added here dynamically -->
+    </div>
+</div>
+
+<script>
+function openNav() {
+    document.getElementById("mySidebar").style.width = "200px";
+}
+
+function closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
+}
+
+function getUserData() {
+    fetch('fetch_user_data.php')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.name) {
+                document.getElementById("helloUser").textContent = `Hello ${data.name}!`;
+            } else {
+                document.getElementById("helloUser").textContent = "Hello!";
+            }
+        })
+        .catch(error => console.error('Error fetching user data:', error));
+}
+function getRecruitersData() {
+    fetch('fetch_recruiters_data.php')
+        .then(response => response.json())
+        .then(recruiters => {
+            const recruitersList = document.getElementById('recruitersList');
+            recruitersList.innerHTML = '';
+            recruiters.forEach((recruiter, index) => {
+                const recruiterCard = document.createElement('div');
+                recruiterCard.className = 'recruiter-card';
+                recruiterCard.innerHTML = `
+                    <h3>${recruiter.name}</h3>
+                    <p>${recruiter.city}</p>
+                `;
+                recruiterCard.onclick = () => {
+                    window.location.href = `rcr${index + 1}postnewjob.html`;
+                };
+                recruitersList.appendChild(recruiterCard);
+            });
+        })
+        .catch(error => console.error('Error fetching recruiters data:', error));
+}
+
+function filterRecruiters() {
+    const input = document.getElementById('searchInput');
+    const filter = input.value.toUpperCase();
+    const recruiters = document.getElementsByClassName('recruiter-card');
+
+    for (let i = 0; i < recruiters.length; i++) {
+        let recruiterText = recruiters[i].textContent.toUpperCase();
+        if (recruiterText.indexOf(filter) > -1) {
+            recruiters[i].style.display = '';
+        } else {
+            recruiters[i].style.display = 'none';
+        }
+    }
+}
+
+// Fetch and display the user's name and recruiters data when the page loads
+document.addEventListener("DOMContentLoaded", () => {
+    getUserData();
+    getRecruitersData();
+
+    // Add event listener to the search input for filtering recruiters
+    document.getElementById('searchInput').addEventListener('keyup', filterRecruiters);
+});
+</script>
+
+</body>
+</html>

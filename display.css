@@ -1,0 +1,70 @@
+/* Table styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Table header styles */
+th {
+  background-color: #f2f2f2;
+  color: #333;
+  font-weight: bold;
+  text-align: left;
+  padding: 8px;
+}
+
+/* Table row styles */
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Table cell styles */
+td {
+  padding: 8px;
+}
+
+/* Star rating styles */
+.star-rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  text-align: left;
+}
+
+.star-rating input[type="radio"] {
+  display: none;
+}
+
+.star-rating label {
+  color: #ccc;
+  font-size: 25px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.star-rating label:before {
+  content: "\2605";
+  padding: 5px;
+}
+
+.star-rating input[type="radio"]:checked ~ label {
+  color: #ffcc00;
+}
+
+/* Button styles */
+.btn {
+  padding: 8px 16px;
+  margin: 4px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  color: #333;
+}

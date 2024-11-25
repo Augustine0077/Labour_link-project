@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labour Link</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('admin_baground.jpg') no-repeat center center fixed; /* Set background image */
+            background-size: cover; /* Ensure the background covers the entire body */
+            transition: background-color 0.5s;
+        }
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #343a40;
+            overflow-x: hidden;
+            padding-top: 60px;
+            transition: 0.5s;
+            color: white;
+            z-index: 2;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+        }
+        .sidebar a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+            border-bottom: 1px solid #555;
+        }
+        .sidebar a:first-child {
+            border-top: 1px solid #555;
+        }
+        .sidebar a:hover {
+            background-color: #495057;
+            border-left: 4px solid #007bff;
+            padding-left: 21px;
+        }
+        .content {
+            margin: 0 auto;
+            padding: 60px 40px;
+            width: 60%;
+            text-align: center;
+            transition: all 0.5s ease;
+            position: relative;
+            top: 60px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+        .openbtn {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 3;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .openbtn:hover {
+            background-color: #0056b3;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        h1 {
+            animation: slideIn 1s ease forwards;
+            font-size: 48px;
+            font-weight: bold;
+            font-family: 'Roboto', Arial, sans-serif;
+            color: #343a40;
+            margin-bottom: 10px;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        h2 {
+            animation: fadeIn 1s ease forwards;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar" id="mySidebar">
+    <a href="javascript:void(0)" onclick="closeNav()">Close &times;</a>
+    <a href="index.html">Log out</a>
+    <a href="display.php">All Users</a>
+    <a href="admin_view_reviews.php">Complaints</a>
+</div>
+
+<div class="content" id="main">
+    <button class="openbtn" onclick="openNav()">☰</button>
+   
+    <h1>Labour Link</h1>
+    <h2>Admin Panel</h2>
+    <p>Welcome to the admin panel. Use the sidebar to navigate through different sections.</p>
+</div>
+
+<script>
+function openNav() {
+    document.getElementById("mySidebar").style.width = "250px";
+}
+
+function closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
+}
+</script>
+
+</body>
+</html>

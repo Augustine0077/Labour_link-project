@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Seeker Registration</title>
+    <style>
+        body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('register.avif') no-repeat center center fixed;
+    background-size: cover; /* Ensure the background covers the whole page */
+    color: #333; /* General text color */
+}
+{
+            background-color: #e6ffe6;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            resize: vertical;
+        }
+        .error-message {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+        .form-group input.error,
+        .form-group select.error,
+        .form-group textarea.error {
+            border-color: red;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .form-group button:hover {
+            background-color: #218838;
+        }
+    </style>
+    <script>
+        function showError(input, message) {
+            const formGroup = input.parentElement;
+            const errorDisplay = formGroup.querySelector('.error-message');
+            input.classList.add('error');
+            errorDisplay.innerText = message;
+            errorDisplay.style.display = 'block';
+        }
+
+        function clearError(input) {
+            const formGroup = input.parentElement;
+            const errorDisplay = formGroup.querySelector('.error-message');
+            input.classList.remove('error');
+            errorDisplay.style.display = 'none';
+        }
+
+        function validateForm() {
+            let isValid = true;
+
+            // Validate First Name and Last Name (only letters)
+            const namePattern = /^[A-Za-z]+$/;
+            const firstName = document.getElementById("first_name");
+            const lastName = document.getElementById("last_name");
+
+            if (!namePattern.test(firstName.value)) {
+                showError(firstName, "First Name should only contain letters.");
+                isValid = false;
+            } else {
+                clearError(firstName);
+            }
+
+            if (!namePattern.test(lastName.value)) {
+                showError(lastName, "Last Name should only contain letters.");
+                isValid = false;
+            } else {
+                clearError(lastName);
+            }
+
+            // Validate Email (must contain @gmail.com)
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+            const email = document.getElementById("email");
+
+            if (!emailPattern.test(email.value)) {
+                showError(email, "Please enter a valid Gmail address (e.g., user@gmail.com).");
+                isValid = false;
+            } else {
+                clearError(email);
+            }
+
+            // Validate Password (minimum 8 characters, with letters, numbers, and special characters)
+            const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+            const password = document.getElementById("password");
+            const confirmPassword = document.getElementById("confirm_password");
+
+            if (!passwordPattern.test(password.value)) {
+                showError(password, "Password must be at least 8 characters long, contain letters, numbers, and at least one special character.");
+                isValid = false;
+            } else {
+                clearError(password);
+            }
+
+            if (password.value !== confirmPassword.value) {
+                showError(confirmPassword, "Passwords do not match.");
+                isValid = false;
+            } else {
+                clearError(confirmPassword);
+            }
+
+            // Validate Job Title (only letters)
+            const jobTitle = document.getElementById("job_title");
+
+            if (!namePattern.test(jobTitle.value)) {
+                showError(jobTitle, "Job Title should only contain letters.");
+                isValid = false;
+            } else {
+                clearError(jobTitle);
+            }
+
+            // Validate Phone Number (exactly 10 digits)
+            const phonePattern = /^\d{10}$/;
+            const phone = document.getElementById("phone");
+
+            if (!phonePattern.test(phone.value)) {
+                showError(phone, "Phone number must be exactly 10 digits.");
+                isValid = false;
+            } else {
+                clearError(phone);
+            }
+
+            // Validate Skills (only letters and commas)
+            const skillsPattern = /^[A-Za-z, ]+$/;
+            const skills = document.getElementById("skills");
+
+            if (skills.value && !skillsPattern.test(skills.value)) {
+                showError(skills, "Skills should only contain letters and commas.");
+                isValid = false;
+            } else {
+                clearError(skills);
+            }
+
+            // Validate Address (only letters and spaces)
+            const addressPattern = /^[A-Za-z\s]+$/;
+            const address = document.getElementById("address");
+
+            if (!addressPattern.test(address.value)) {
+                showError(address, "Address should only contain letters.");
+                isValid = false;
+            } else {
+                clearError(address);
+            }
+
+            // Validate Location (only letters)
+            const location = document.getElementById("location");
+
+            if (!namePattern.test(location.value)) {
+                showError(location, "Location should only contain letters.");
+                isValid = false;
+            } else {
+                clearError(location);
+            }
+
+            // Validate Hourly Rate (only numbers)
+            const hourlyRate = document.getElementById("hourly_rate");
+
+            if (isNaN(hourlyRate.value) || hourlyRate.value <= 0) {
+                showError(hourlyRate, "Hourly rate must be a positive number.");
+                isValid = false;
+            } else {
+                clearError(hourlyRate);
+            }
+
+            return isValid; // Form submission is only allowed if isValid is true
+        }
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Job Seeker Registration</h2>
+    <form action="register_seeker.php" method="post" onsubmit="return validateForm();">
+        <div class="form-group">
+            <label for="first_name">First Name</label>
+            <input type="text" id="first_name" name="first_name" required>
+            <span class="error-message"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="last_name">Last Name</label>
+            <input type="text" id="last_name" name="last_name" required>
+            <span class="error-message"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" required>
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+            <span class="error-message"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="job_title">Job Title</label>
+            <input type="text" id="job_title" name="job_title" required>
+            <span class="error-message"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+            <span class="error-message"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            <span class="error-message"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="confirm_password">Confirm Password</label>
+            <input type="password" id="confirm_password" name="confirm_password" required>
+            <span class="error-message"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required>
+            <span class="error-message"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="address">Address</label>
+            <textarea id="address" name="address" rows="4" required></textarea>
+            <span class="error-message"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" id="location" name="location" required>
+            <span class="error-message"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="skills">Skills</label>
+            <input type="text" id="skills" name="skills">
+            <span class="error-message"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="hourly_rate">Hourly Rate</label>
+            <input type="number" id="hourly_rate" name="hourly_rate" required>
+            <span class="error-message"></span>
+        </div>
+
+        <div class="form-group">
+            <button type="submit">Register</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

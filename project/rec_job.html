@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Job Posting</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .labourlink {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 18px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <a href="#" class="labourlink">LabourLink</a>
+    <h2>Add New Job Posting</h2>
+    <form action="process_job_posting.php" method="post">
+        <label for="job_title">Job Title:</label><br>
+        <input type="text" id="job_title" name="job_title" required><br><br>
+
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description" rows="4" required></textarea><br><br>
+
+        <label for="location">Location of Work:</label><br>
+        <input type="text" id="location" name="location" required><br><br>
+
+        <label for="skills_required">Skills Required:</label><br>
+        <input type="text" id="skills_required" name="skills_required" required><br><br>
+
+        <label for="openings">Number of Openings:</label><br>
+        <input type="number" id="openings" name="openings" required><br><br>
+
+        <label for="date_time">Date and Time:</label><br>
+        <input type="datetime-local" id="date_time" name="date_time" required><br><br>
+
+        <label for="hours">Hours:</label><br>
+        <input type="number" id="hours" name="hours" required><br><br>
+
+        <label for="wage">Wage:</label><br>
+        <input type="number" id="wage" name="wage" required><br><br>
+
+         <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
